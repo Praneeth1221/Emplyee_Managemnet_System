@@ -16,4 +16,6 @@ public interface EmployeeService {
     Emplyee searchById(Integer id);
 
     List<Emplyee> searchByName(String name);
+
+    boolean existsByEmail(String email);
 }

@@ -3,6 +3,7 @@ package edu.icet.controller;
 import edu.icet.dto.Emplyee;
 import edu.icet.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +39,10 @@ public class EmployeeController {
     @GetMapping("/search-by-name/{name}")
     public List<Emplyee> searchByName(@PathVariable String name){
         return service.searchByName(name);
+    }
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
+        boolean exists = service.existsByEmail(email);
+        return ResponseEntity.ok(exists);
     }
 }

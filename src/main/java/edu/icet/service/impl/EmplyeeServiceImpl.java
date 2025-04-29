@@ -45,8 +45,10 @@ public class EmplyeeServiceImpl implements EmployeeService {
         if(existingEmployee.isPresent()) {
             EmployeeEntity entityToUpdate = existingEmployee.get();
             entityToUpdate.setName(emplyee.getName());
-            entityToUpdate.setAddress(emplyee.getAddress());
-            entityToUpdate.setSalary(emplyee.getSalary());
+            entityToUpdate.setEmail(emplyee.getEmail());
+            entityToUpdate.setDepartment(emplyee.getDepartment());
+            entityToUpdate.setCreateAt(emplyee.getCreateAt());
+            entityToUpdate.setUpdateAt(emplyee.getUpdateAt());
             repository.save(entityToUpdate);
         } else {
             throw new RuntimeException("Employee with ID " + emplyee.getId() + " not found.");
@@ -67,5 +69,10 @@ public class EmplyeeServiceImpl implements EmployeeService {
             emplyeeList.add(modelMapper.map(employeeEntity, Emplyee.class));
         });
         return emplyeeList;
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
     }
 }
