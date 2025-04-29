@@ -1,19 +1,20 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Emplyee;
+import edu.icet.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/employee")
 @RequiredArgsConstructor
 @CrossOrigin
 public class EmployeeController {
+    final EmployeeService service;
     @PostMapping("/add")
-    public void addEmployee(Emplyee emplyee){
 
+    public void addEmployee(@RequestBody Emplyee emplyee){
+        service.addEmplyee(emplyee);
+        System.out.println(emplyee);
     }
 }
