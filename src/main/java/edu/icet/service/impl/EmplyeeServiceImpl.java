@@ -42,20 +42,30 @@ public class EmplyeeServiceImpl implements EmployeeService {
     @Override
     public void updateEmployee( Emplyee emplyee) {
         Optional<EmployeeEntity> existingEmployee = repository.findById(emplyee.getId());
-
         if(existingEmployee.isPresent()) {
             EmployeeEntity entityToUpdate = existingEmployee.get();
-
             entityToUpdate.setName(emplyee.getName());
             entityToUpdate.setAddress(emplyee.getAddress());
             entityToUpdate.setSalary(emplyee.getSalary());
-
             repository.save(entityToUpdate);
         } else {
             throw new RuntimeException("Employee with ID " + emplyee.getId() + " not found.");
         }
     }
 
+    @Override
+    public Emplyee searchById(Integer id) {
+        return modelMapper.map(repository.findById(id), Emplyee.class);
+    }
 
+    @Override
+    public List<Emplyee> searchByName(String name) {
+        List<EmployeeEntity> byName = repository.findByName(name);
+        List<Emplyee> emplyeeList = new ArrayList<>();
 
+        byName.forEach(employeeEntity -> {
+            emplyeeList.add(modelMapper.map(employeeEntity, Emplyee.class));
+        });
+        return emplyeeList;
+    }
 }
