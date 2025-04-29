@@ -32,4 +32,9 @@ public class EmplyeeServiceImpl implements EmployeeService {
         });
         return emplyeeList;
     }
+
+    @Override
+    public void deleteCustomer(Integer id) {
+        repository.deleteById(id);
+    }
 }

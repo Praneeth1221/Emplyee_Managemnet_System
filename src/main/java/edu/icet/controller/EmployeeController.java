@@ -17,10 +17,14 @@ public class EmployeeController {
 
     public void addEmployee(@RequestBody Emplyee emplyee){
         service.addEmplyee(emplyee);
-        System.out.println(emplyee);
     }
     @GetMapping("/get-all")
     public List<Emplyee> getAll(){
         return service.getAll();
     }
+    @DeleteMapping("/delete/{id}")
+    public void deleteEmployee(@PathVariable Integer id){
+        service.deleteCustomer(id);
+    }
+
 }
