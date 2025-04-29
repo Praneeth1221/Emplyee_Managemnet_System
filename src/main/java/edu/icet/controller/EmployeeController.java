@@ -3,6 +3,7 @@ package edu.icet.controller;
 import edu.icet.dto.Emplyee;
 import edu.icet.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,12 @@ public class EmployeeController {
     }
     @DeleteMapping("/delete/{id}")
     public void deleteEmployee(@PathVariable Integer id){
-        service.deleteCustomer(id);
+        service.deleteEmployee(id);
     }
+    @PutMapping("/update-employee/{id}")
+    public void updateEmployee(@PathVariable Integer id, @RequestBody Emplyee emplyee) {
+        service.updateEmployee(id, emplyee);
+    }
+
 
 }

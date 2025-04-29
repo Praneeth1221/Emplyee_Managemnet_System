@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,27 @@ public class EmplyeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteCustomer(Integer id) {
+    public void deleteEmployee(Integer id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public void updateEmployee(Integer id, Emplyee emplyee) {
+        Optional<EmployeeEntity> optionalEmployee = repository.findById(id);
+
+        if (optionalEmployee.isPresent()) {
+            EmployeeEntity existingEmployee = optionalEmployee.get();
+
+            existingEmployee.setName(emplyee.getName());
+            existingEmployee.setAddress(emplyee.getAddress());
+            existingEmployee.setSalary(emplyee.getSalary());
+
+            repository.save(existingEmployee);
+        } else {
+            throw new RuntimeException("Employee with ID " + id + " not found.");
+        }
+    }
+
+
+
 }
