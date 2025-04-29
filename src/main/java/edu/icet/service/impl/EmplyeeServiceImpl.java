@@ -40,19 +40,19 @@ public class EmplyeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(Integer id, Emplyee emplyee) {
-        Optional<EmployeeEntity> optionalEmployee = repository.findById(id);
+    public void updateEmployee( Emplyee emplyee) {
+        Optional<EmployeeEntity> existingEmployee = repository.findById(emplyee.getId());
 
-        if (optionalEmployee.isPresent()) {
-            EmployeeEntity existingEmployee = optionalEmployee.get();
+        if(existingEmployee.isPresent()) {
+            EmployeeEntity entityToUpdate = existingEmployee.get();
 
-            existingEmployee.setName(emplyee.getName());
-            existingEmployee.setAddress(emplyee.getAddress());
-            existingEmployee.setSalary(emplyee.getSalary());
+            entityToUpdate.setName(emplyee.getName());
+            entityToUpdate.setAddress(emplyee.getAddress());
+            entityToUpdate.setSalary(emplyee.getSalary());
 
-            repository.save(existingEmployee);
+            repository.save(entityToUpdate);
         } else {
-            throw new RuntimeException("Employee with ID " + id + " not found.");
+            throw new RuntimeException("Employee with ID " + emplyee.getId() + " not found.");
         }
     }
 
